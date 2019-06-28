@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <!-- 针对safari（iOS）的添加到桌面功能进行相关设置 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="todo">
+  <link rel="apple-touch-icon" href="icons/icon-256.png">
+
+  <!-- IE的设置 -->
+  <meta name="application-name" content="todo" />
+  <meta name="msapplication-TileColor" content="#222">
+  <meta name="msapplication-square70x70logo" content="icons/icon-64.png" />
+  <meta name="msapplication-square150x150logo" content="icons/icon-128.png" />
+  <meta name="msapplication-square310x310logo" content="icons/icon-256.png" />
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="./styles/reset.css">
+  <title>todo</title>
+</head>
+<body>
+  <div class="container">
+      123
+  </div>
+  <script src="./sw.js"></script>
+  <script src="./index.js"></script>
+  <script>
+    console.log(app)
+    function saveTodo(params) {
+      app.request.post('/api/user/addTodo',params).then(res=>{
+        console.log(res)
+      })
+    }
+    let params = {
+        taskname:"下班打卡",
+        mark:"下班记得打卡哦",
+        repeat_type:1,
+        notificate_time:"18:00"
+      }
+    saveTodo(params)
+    
+  </script>
+</body>
+</html>
