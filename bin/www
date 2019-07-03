@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: doctor
  * @Date: 2019-06-22 09:58:24
- * @LastEditTime: 2019-06-27 09:11:31
+ * @LastEditTime: 2019-07-02 09:39:11
  * @LastEditors: doctor
  */
 
@@ -20,7 +20,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
+var port = normalizePort(process.env.PORT || '3002');
 // app.set('port', port);
 
 /**

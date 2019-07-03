@@ -2,12 +2,13 @@
  * @Description: 
  * @Author: doctor
  * @Date: 2019-06-22 10:02:52
- * @LastEditTime: 2019-06-23 23:11:23
+ * @LastEditTime: 2019-07-01 21:47:11
  * @LastEditors: doctor
  */
 const koa = require('koa')
 const app = new koa()
 const bodyparser = require('koa-bodyparser')
+const util      = require('./utils/ws')
 
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
@@ -81,4 +82,8 @@ app.use(publicRputer.routes(), publicRputer.allowedMethods())
 app.use(userRouter.routes(), userRouter.allowedMethods())
 
 
+
+
+// let testData = {"endpoint":"https://fcm.googleapis.com/fcm/send/epekhhSB3Rg:APA91bFBlDQuYLbEUYjaj5wZ5sD4kD7sQkIba-o07lkQvrM_Zpzi75rEt5DH1UT05YTRbecG_Sbr9xjRWjEcUr1_lv1LN1Dk8VpvxbYyjTV-QSBWpuOB5zc-N3ycOyxESLiYTa5-zLjU","expirationTime":null,"keys":{"p256dh":"BBuTtAKTcgmVAwdVorLUFi0LnMQ3b4Yk8ghkdscRt0ZbMd3cxD2yShqe4mHt1e_2IO64jrue_h5U-zpFh3EN0f0","auth":"7NsoiB3c6CxVM9pAnY8Yyw"},"uniqueid":1561987978789}
+// pushMessage(testData,'test msg')
 module.exports = app

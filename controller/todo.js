@@ -2,7 +2,7 @@
  * @Description: todo controller
  * @Author: doctor
  * @Date: 2019-06-23 22:28:12
- * @LastEditTime: 2019-06-28 16:30:07
+ * @LastEditTime: 2019-06-28 18:23:40
  * @LastEditors: doctor
  */
 const moment = require('moment')
@@ -23,4 +23,10 @@ todo.add = async( params ) =>{
   return {
     insert_id : insert.insertId
   }
+}
+
+todo.list = async(params)=>{
+  let sql = `select * from  task INNER JOIN notify_type ON task.repeat_type = notify_type.id`
+  let list = await exec(sql)
+  return list
 }

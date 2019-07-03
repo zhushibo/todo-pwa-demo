@@ -2,13 +2,13 @@
  * @Description: user controller
  * @Author: doctor
  * @Date: 2019-06-22 10:02:30
- * @LastEditTime: 2019-06-28 16:31:00
+ * @LastEditTime: 2019-06-28 18:08:38
  * @LastEditors: doctor
  */
 const user = require('koa-router')()
 const { SuccessModel, ErrorModel } = require('../../model/resModel')
 const { login } = require('../../controller/user')
-const { add } = require('../../controller/todo')
+const { add , list} = require('../../controller/todo')
 const loginCheck = require('../../middleware/loginCheck')
 
 user.prefix('/api/user')
@@ -36,10 +36,15 @@ user.get('/login',async (ctx)=>{
 
 user.post('/addTodo',async(ctx)=>{
   const params = ctx.request.body
-  console.log(params)
   const result = await add(params)
   ctx.body = new SuccessModel('login ok')
 })
+
+user.post('/list',async(ctx)=>{
+  const result = await list()
+  ctx.body = new SuccessModel(result,'login ok')
+})
+
 user.post('/loginAction',async (ctx, next)=>{
   const {username, password} = ctx.request.body
 

@@ -22,25 +22,84 @@
 </head>
 <body>
   <div class="container">
-      123
+    <div class="list">
+      <div class="header">
+        <div class="notify-time">提醒时间</div>
+        <div class="repeat-time">重复</div>
+        <div class="content">标题</div>
+        <div class="des">备注</div>
+        <div class="create-time">创建时间</div>
+      </div>
+      <div class="items" id="items">
+        <!-- <div class="item">
+          <div class="notify-time">18:00</div>
+          <div class="repeat-time">工作日</div>
+          <div class="content">下班记得打卡哟！</div>
+          <div class="des">备注</div>
+          <div class="create-time">2019-06-28 16:55:07</div>
+        </div> -->
+      </div>
+    </div>
   </div>
+  <script src="./js/utils.js"></script>
   <script src="./sw.js"></script>
   <script src="./index.js"></script>
   <script>
-    console.log(app)
+
+    function $(selector) {
+      return document.querySelectorAll(selector);
+    }
     function saveTodo(params) {
       app.request.post('/api/user/addTodo',params).then(res=>{
-        console.log(res)
+        
       })
     }
-    let params = {
-        taskname:"下班打卡",
-        mark:"下班记得打卡哦",
-        repeat_type:1,
-        notificate_time:"18:00"
-      }
-    saveTodo(params)
-    
+
+    function renderList(data) {
+      console.log(111111111111111111,data)
+      let html = '';
+      data.forEach(element => {     
+        let template = `
+          <div class="item">
+            <div class="notify-time">${element.notificate_time}</div>
+            <div class="repeat-time">${element.des}</div>
+            <div class="content">${element.name}</div>
+            <div class="des">${element.mark}</div>
+            <div class="create-time">${element.created_time}</div>
+          </div>
+        `
+        html+=template;
+      });
+      $("#items")[0].innerHTML = html;
+    }
+    function getList(params) {
+      let url = '/api/user/list'
+      let cacheData
+      app.getCacheData(url).then(data=>{
+        console.log(data)
+        if(data){
+          renderList(data.data)
+        }
+        cacheData = data || {};
+        return app.request.post(url,params);
+      }).then(res=>{
+        if (JSON.stringify(res) !== JSON.stringify(cacheData)) {
+          renderList(res.data)
+        }
+      })
+
+    }
+    function init(params) {
+      getList();
+    }
+    // let params = {
+    //     taskname:"下班打卡",
+    //     mark:"下班记得打卡哦",
+    //     repeat_type:1,
+    //     notificate_time:"18:00"
+    //   }
+    // saveTodo(params)
+    init();
   </script>
 </body>
 </html>
